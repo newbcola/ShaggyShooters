@@ -1,5 +1,5 @@
 # Shaggy Shooters
-shaggy shooters is a really epic game made by <b>Matrix Duck Games</b>
+shaggy shooters is a really epic game made by <b>iandoesgaming</b> from <b>Matrix Duck Games</b>
 
 this game is hosted by your local catgirl, <b>newbcola</b>
 
