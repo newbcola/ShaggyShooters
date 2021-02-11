@@ -1,0 +1,206 @@
+<html>
+<head>
+<style>
+.playButton {
+    border: 1px solid black;
+    width: 1900px;
+    height: 75px;
+    background-color: green;
+} body {
+    text-align: center;
+    position: relative;
+} .shaggy {
+    border: 1px solid sandybrown;
+    background-color: sandybrown;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+}
+.gun {
+    width: 250;
+    height: 40px;
+    background-color: black;
+    position: absolute;
+}
+.bullets {
+    background-color: yellow;
+    width: 2000px;
+    height: 10px;
+    position: absolute;
+}
+.enemies {
+    position: absolute;
+}
+h1 {
+    text-align: center;
+    position: absolute;
+}
+.header {
+    position: relative;
+}
+.creditsBtn {
+    border: 1px solid black;
+    width: 950px;
+    height: 75px;
+    background-color: aqua;
+}
+</style>
+</head>
+<body>
+<div class="wholeArea" id="areaId">
+<div class="headerText" id="headerText">
+<h1 class="header">Shaggy Shooter</h1>
+<h2>press play to play</h2>
+</div>
+<div class="shaggy" id="shaggy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5UMithNJysMdzph49W6hfWjyM7CT-5rraA&usqp=CAU"></div>
+<div class="playButton" id="playbutton" onclick="hideThings1()"><h2>play</h2></div>
+<br />
+<div class="creditsBtn" id="creditsBtnId" onclick="credits()">
+<h2>credits</h2></div>
+</div>
+</body>
+ 
+<script>
+let scoreCounter = "0";
+let gameScore = 0;
+let enemy = "";
+let enemyPos = 0;
+let enemyPos3 = "";
+let bulletPos1 = 0;
+let enemyPos2 = 1100;
+let shootBullet = 1;
+let i = 0;
+let bPos1 = document.getElementById("shaggy").style.marginLeft;
+let uDV = 0;
+let lRV = 0;
+document.getElementById("shaggy").style.opacity = 0;
+document.getElementById("playbutton").style.opacity = 1;
+function hideThings1() {
+    console.log("function1p1");
+    if (document.getElementById("playbutton").style.opacity === "1") {
+        console.log("function1p2")
+        hideThings2()
+    } else {
+ 
+    }
+}
+function hideThings2() {
+    let cBVar = document.getElementById("creditsBtnId");
+    let headerVar = document.getElementById("headerText");
+    let pBVar = document.getElementById("playbutton");
+    headerVar.remove();
+    pBVar.remove();
+    cBVar.remove();
+    startGame();
+}
+function startGame() {
+    // a game by iandoesgaming#0315 (on discord) message me if you see this!!! :D
+    score();
+    spawnEnemys();
+    document.getElementById("shaggy").style.opacity = 1;
+    window.addEventListener("keydown", function (e) {
+        if ((e.key) === "w") {
+            uDV -= 20;
+            document.getElementById("shaggy").style.top = uDV;
+        } else if ((e.key) === "s") {
+            uDV += 20;
+            document.getElementById("shaggy").style.top = uDV;
+        } else if ((e.key) === "a") {
+            lRV -= 20;
+            document.getElementById("shaggy").style.left = lRV;
+        } else if ((e.key) === "d") {
+            lRV += 20;
+            document.getElementById("shaggy").style.left = lRV;
+        }
+    } );    
+   window.addEventListener("click", function (c) {
+       if (shootBullet > 0) {
+        shootBullet -= 1;
+        let bullet = document.createElement("div");
+        bulletPos1 = document.getElementById("shaggy").style.top;
+        let bulletPos2 = document.getElementById("shaggy").style.left;
+        bullet.style.top = bulletPos1;
+        bullet.style.left = bulletPos2;
+        bullet.classList.add("bullets");
+        bullet.id = "bullet"
+        console.log(bulletPos1);
+        document.body.appendChild(bullet);
+        console.log("did the thing");
+        checkIfHit()
+        setTimeout(opacity1, 500);
+        setTimeout(opacity2, 750);
+       }
+   } ) 
+}
+function opacity1() {
+    bullet.style.opacity = 0.5;
+}
+function opacity2() {
+    let BDV = document.getElementById("bullet");
+    BDV.style.opacity = 0;
+    BDV.remove();
+    shootBullet += 1;
+}
+function spawnEnemys() {
+    enemyPos = Math.floor(Math.random() * 701);
+    enemy = document.createElement("div");
+    document.body.appendChild(enemy);
+    // now we do the position things :D -- also yes i get it this code sucks, relax bro im 13 and im making a game called shaggy shooters dont come for me
+    enemy.style.top = enemyPos;
+    enemy.style.left = enemyPos2;
+    // and then the css things
+    enemy.id = "enemyid";
+    enemy.classList.add("enemies");
+    document.getElementById("enemyid").style.width = 100;
+    document.getElementById("enemyid").style.height = 100;
+    document.getElementById("enemyid").style.backgroundColor = "black";
+    document.getElementById("enemyid").style.position = "relative";
+}
+function checkIfHit() {
+    console.log("check1")
+    enemyPos3 = enemyPos + 101;
+    const bp1 = parseInt(document.getElementById("bullet").style.top);
+    if (bp1 > enemyPos) {
+        console.log("check2");
+        if (bp1 < enemyPos3) {
+            console.log("check3");
+            gameScore += 1;
+            document.getElementById("scoreCounterId").innerHTML = gameScore;
+            enemy.remove();
+            spawnEnemys();
+        }
+    }
+}
+function score() {
+    scoreCounter = document.createElement("h1");
+    document.body.appendChild(scoreCounter);
+    scoreCounter.id = "scoreCounterId"
+}
+function credits() {
+    //get rid of things 
+    let headerVar = document.getElementById("headerText");
+    let pBVar = document.getElementById("playbutton");
+    let cBVar = document.getElementById("creditsBtnId");
+    headerVar.remove();
+    pBVar.remove();
+    cBVar.remove();
+    // got rid of things
+
+    //credits header
+    const creditsh1 = document.createElement("h1");
+    document.body.appendChild(creditsh1);
+    creditsh1.id = "creditsheader";
+    document.getElementById("creditsheader").innerHTML = "Credits";
+    //creadits line 1
+    const creditsl1 = document.createElement("h2");
+    document.body.appendChild(creditsl1);
+    creditsl1.id = "creditsline1"
+    document.getElementById("creditsline1").innerHTML = "Thanks to isaac my absolute g who donated a generous dollar in coins or something like that"
+    //credits line 2
+    const creditsl2 = document.createElement("h2");
+    document.body.appendChild(creditsl2);
+    creditsl2.id = "creditsline2"
+    document.getElementById("creditsline2").innerHTML = "thanks to ben and ryan and luke for the epic words of encouragement"
+}
+</script>
+</html> 
