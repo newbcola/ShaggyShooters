@@ -91,7 +91,7 @@ h1 {
 <h3>NOTE: is very broken lol (also play verticle)</h3>
 <h3>details:</h3>
 <h3>has 30 seconds instead of 15</h3>
-<h3>dont spam the buttons it will zoom in</h3>
+<h3>moves twice as far</h3>
 </div>
 </div>
 </body>
@@ -396,11 +396,11 @@ function makeMobileControls() {
     shootB.onclick = shootBulletFunction;
 }
 function moveUp() {
-    uDV -= 20;
+    uDV -= 40;
     document.getElementById("shaggy").style.top = uDV;
 }
 function moveDown() {
-    uDV += 20;
+    uDV += 40;
     document.getElementById("shaggy").style.top = uDV;
 }
 function shootButtonFunction() {
