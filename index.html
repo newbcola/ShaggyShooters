@@ -10,8 +10,6 @@
     text-align: center;
     position: relative;
 } .shaggy {
-    border: 1px solid sandybrown;
-    background-color: sandybrown;
     width: 75px;
     height: 75px;
     position: absolute;
@@ -23,7 +21,6 @@
     position: absolute;
 }
 .bullets {
-    background-color: yellow;
     width: 2000px;
     height: 10px;
     position: absolute;
@@ -33,6 +30,8 @@
 }
 h1 {
     text-align: center;
+    font-family: Impact;
+    color: black;
     position: absolute;
 }
 .header {
@@ -44,6 +43,24 @@ h1 {
     height: 75px;
     background-color: aqua;
 }
+.pabc {
+    background-color: greenyellow;
+}
+.clbutton {
+    border: 1px solid black;
+    width: 475px;
+    height: 75px;
+    background-color:black;
+}
+.movementButtons {
+    position: absolute;
+}
+.mmbutton {
+    border: 1px solid black;
+    width: 237.5px;
+    height: 500px;
+    background-color: red;
+}
 </style>
 </head>
 <body>
@@ -52,85 +69,127 @@ h1 {
 <h1 class="header">Shaggy Shooter</h1>
 <h2>press play to play</h2>
 </div>
-<div class="shaggy" id="shaggy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5UMithNJysMdzph49W6hfWjyM7CT-5rraA&usqp=CAU"></div>
-<div class="playButton" id="playbutton" onclick="hideThings1()"><h2>play</h2></div>
+<div class="playButton" id="playbutton" onclick="hideThings2()">
+<h2>play</h2>
+</div>
 <br />
 <div class="creditsBtn" id="creditsBtnId" onclick="credits()">
 <h2>credits</h2></div>
+<br />
+<div class="clbutton" id="clbuttonid" onclick="changelog()">
+<h2 style="color: white;">changelog (console.log on click)</h2>
+</div>
+<br id="break1">
+<br id="break2">
+<br id="break3">
+<br id="break4">
+<br id="break5">
+<div class="mmbutton" id="mmbuttonid" onclick="mobileModeToggle()">
+<h2>toggle mobile mode.</h2>
+<h3 id="mobileModeText">mobile mode: OFF</h3>
+</div>
 </div>
 </body>
  
 <script>
+// <div class="shaggy" id="shaggy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5UMithNJysMdzph49W6hfWjyM7CT-5rraA&usqp=CAU"></div>
+let mobileModeVar = 0;
+let russianCheck = 0;
+let timeVar = 15000;
+let movementChecker = 0;
 let scoreCounter = "0";
 let gameScore = 0;
 let enemy = "";
 let enemyPos = 0;
 let enemyPos3 = "";
 let bulletPos1 = 0;
-let enemyPos2 = 1100;
+let enemyPos2 = 0;
 let shootBullet = 1;
 let i = 0;
-let bPos1 = document.getElementById("shaggy").style.marginLeft;
 let uDV = 0;
 let lRV = 0;
-document.getElementById("shaggy").style.opacity = 0;
-document.getElementById("playbutton").style.opacity = 1;
-function hideThings1() {
-    console.log("function1p1");
-    if (document.getElementById("playbutton").style.opacity === "1") {
-        console.log("function1p2")
-        hideThings2()
-    } else {
- 
+window.addEventListener("keydown", function (e) {
+    if ((e.key) === "w") {
+        uDV -= 20;
+        document.getElementById("shaggy").style.top = uDV;
+    } else if ((e.key) === "s") {
+        uDV += 20;
+        document.getElementById("shaggy").style.top = uDV;
+    } else if ((e.key) === "a") {
+        lRV -= 20;
+        document.getElementById("shaggy").style.left = lRV;
+    } else if ((e.key) === "d") {
+        lRV += 20;
+        document.getElementById("shaggy").style.left = lRV;
     }
-}
+} );
+function mobileModeToggle() {
+    if (mobileModeVar < 1) {
+        document.getElementById("mobileModeText").innerHTML = "mobile mode: ON";
+        mobileModeVar += 1;
+    } else {
+        document.getElementById("mobileModeText").innerHTML = "mobile mode: OFF";
+        mobileModeVar -= 1;
+    }
+}    
 function hideThings2() {
-    let cBVar = document.getElementById("creditsBtnId");
-    let headerVar = document.getElementById("headerText");
-    let pBVar = document.getElementById("playbutton");
-    headerVar.remove();
-    pBVar.remove();
-    cBVar.remove();
+    document.getElementById("mmbuttonid").remove();
+    document.getElementById("creditsBtnId").remove();
+    document.getElementById("headerText").remove();
+    document.getElementById("playbutton").remove();
+    document.getElementById("clbuttonid").remove();
+    document.getElementById("break1").remove();
+    document.getElementById("break2").remove();
+    document.getElementById("break3").remove();
+    document.getElementById("break4").remove();
+    document.getElementById("break5").remove();
+    beforeSG();
+}
+function beforeBeforeSG() {
+    console.log("bbsg");
+    const finalScoreVar = document.getElementById("fsid");
+    finalScoreVar.remove();
+    const playAgain2 = document.getElementById("pab");
+    playAgain2.remove();
+    beforeSG();
+}
+function beforeSG() {
+    let shaggy = document.createElement("div");
+    document.body.appendChild(shaggy);
+    shaggy.id = "shaggy";
+    shaggy.width = "100";
+    shaggy.height = "100";
+    shaggy.classList.add("shaggy");
+    // make shaggy have face & water gun
+    let shaggyImage = document.createElement("img");
+    shaggyImage.id = "shaggyimageid"
+    shaggy.appendChild(shaggyImage);
+    shaggyImage.src = "https://i.imgur.com/MjO9nRq.png";
+    if (mobileModeVar > 0) {
+        makeMobileControls();
+    } else {
+
+    }
     startGame();
 }
 function startGame() {
+    russianCheck -= russianCheck;
     // a game by iandoesgaming#0315 (on discord) message me if you see this!!! :D
-    score();
-    spawnEnemys();
-    document.getElementById("shaggy").style.opacity = 1;
-    window.addEventListener("keydown", function (e) {
-        if ((e.key) === "w") {
-            uDV -= 20;
-            document.getElementById("shaggy").style.top = uDV;
-        } else if ((e.key) === "s") {
-            uDV += 20;
-            document.getElementById("shaggy").style.top = uDV;
-        } else if ((e.key) === "a") {
-            lRV -= 20;
-            document.getElementById("shaggy").style.left = lRV;
-        } else if ((e.key) === "d") {
-            lRV += 20;
-            document.getElementById("shaggy").style.left = lRV;
+        score();
+        spawnEnemys();
+        setTimeout(timer, timeVar);
+        document.body.style.backgroundImage = "url('https://i.imgur.com/WxwFGe2.png')";
+        gameScore -= gameScore;
+        uDV = 0;
+        lRV = 0;
+        document.getElementById("shaggy").style.top = 0;
+        document.getElementById("shaggy").style.left = 0;
+        document.getElementById("shaggy").style.opacity = 1;
+        if (mobileModeVar < 1) {
+            window.addEventListener("click", shootBulletFunction)
+        } else {
+
         }
-    } );    
-   window.addEventListener("click", function (c) {
-       if (shootBullet > 0) {
-        shootBullet -= 1;
-        let bullet = document.createElement("div");
-        bulletPos1 = document.getElementById("shaggy").style.top;
-        let bulletPos2 = document.getElementById("shaggy").style.left;
-        bullet.style.top = bulletPos1;
-        bullet.style.left = bulletPos2;
-        bullet.classList.add("bullets");
-        bullet.id = "bullet"
-        console.log(bulletPos1);
-        document.body.appendChild(bullet);
-        console.log("did the thing");
-        checkIfHit()
-        setTimeout(opacity1, 500);
-        setTimeout(opacity2, 750);
-       }
-   } ) 
 }
 function opacity1() {
     bullet.style.opacity = 0.5;
@@ -142,6 +201,12 @@ function opacity2() {
     shootBullet += 1;
 }
 function spawnEnemys() {
+    // determine if mobile mode is on and mobile enemy pos
+    if (mobileModeVar < 1) {
+            enemyPos2 = 1100
+        } else {
+            enemyPos2 = 800;
+        }
     enemyPos = Math.floor(Math.random() * 701);
     enemy = document.createElement("div");
     document.body.appendChild(enemy);
@@ -155,12 +220,18 @@ function spawnEnemys() {
     document.getElementById("enemyid").style.height = 100;
     document.getElementById("enemyid").style.backgroundColor = "black";
     document.getElementById("enemyid").style.position = "relative";
+    if (russianCheck > 0) {
+        let RImg = document.createElement("img");
+        RImg.id = "russianimageid";
+        enemy.appendChild(RImg);
+        document.getElementById("russianimageid").src = "https://i.imgur.com/qDkXV0z.jpg"
+    }
 }
 function checkIfHit() {
     console.log("check1")
-    enemyPos3 = enemyPos + 101;
+    enemyPos3 = enemyPos + 130;
     const bp1 = parseInt(document.getElementById("bullet").style.top);
-    if (bp1 > enemyPos) {
+    if (bp1 > enemyPos + 0) {
         console.log("check2");
         if (bp1 < enemyPos3) {
             console.log("check3");
@@ -204,7 +275,183 @@ function credits() {
     const creditsl3 = document.createElement("h2");
     document.body.appendChild(creditsl3);
     creditsl3.id = "creditsline3"
-    document.getElementById("creditsline3").innerHTML = "thanks to newbcola the absolute g who made websites for the game(s) newbcola.github.io/ShaggyShooters/ <- online ver"
+    document.getElementById("creditsline3").innerHTML = "thanks to teague the absolute g who made websites for the game(s) newbcola.github.io/ShaggyShooters/ <- online ver"
 }
+function timer() {
+    console.log("its been 10 seconds");
+    window.removeEventListener("click", shootBulletFunction);
+    // here we do final score shower thing (its in notes because it didnt work and i just made it in the bottle)
+    // and here we make the play again button
+    let playAgain = document.createElement("div");
+    playAgain.id = "pab";
+    playAgain.style.height = "75";
+    playAgain.style.width = "1900";
+    playAgain.classList.add("pabc");
+    document.body.appendChild(playAgain);
+    // make text inside of the play again button
+    let patext = document.createElement("h1");
+    patext.id = "playagaintext"
+    playAgain.appendChild(patext);
+    document.getElementById("playagaintext").innerHTML = "press to play again.";
+    // s c o r e 
+    let finalScore = document.createElement("h1");
+    finalScore.id = "fsid";
+    document.body.appendChild(finalScore);
+    document.getElementById("fsid").innerHTML = "Game ended. Final Score:" + gameScore; 
+    // kill EVERYTHING
+    document.body.style.backgroundImage = "url('')";
+    document.getElementById("scoreCounterId").remove();
+    document.getElementById("shaggyimageid").remove();
+    shaggy.remove();
+    enemy.remove();
+    document.getElementById("upbid").remove();
+    document.getElementById("downbid").remove();
+    document.getElementById("leftbid").remove();
+    document.getElementById("rightbid").remove();
+    document.getElementById("shootbid").remove();
+    console.log("end");
+    playAgain.onclick = beforeBeforeSG;
+}
+function changelog() {
+    console.log("changelog:");
+    console.log("2/10/21 - first official test release");
+}
+function shootBulletFunction() {
+    if (shootBullet > 0) {
+        shootBullet -= 1;
+        let bullet = document.createElement("div");
+        let bulletPosB1 = parseInt(document.getElementById("shaggy").style.top);
+        let bulletPosB2 = parseInt(document.getElementById("shaggy").style.left);
+        let bulletPos1 = bulletPosB1 + 338;
+        let bulletPos2 = bulletPosB2 + 458;
+        bullet.style.top = bulletPos1;
+        bullet.style.left = bulletPos2;
+        bullet.classList.add("bullets");
+        bullet.id = "bullet"
+        console.log(bulletPos1);
+        document.body.appendChild(bullet);
+        if (russianCheck < 1) {
+            console.log("test1");
+            bullet.style.backgroundColor = "aqua";
+        } else {
+            console.log("test2");
+            bullet.style.backgroundColor = "yellow";
+        }
+        console.log("did the thing");
+        checkIfHit()
+        setTimeout(opacity1, 500);
+        setTimeout(opacity2, 750);
+    }
+}
+function russianMode() {
+    russianCheck += 1;
+    document.getElementById("shaggyimageid").src = "https://i.imgur.com/ng1yz1z.png"
+    document.body.style.backgroundImage = "url('https://i.imgur.com/mdxpi5a.jpg')";
+    document.getElementById("enemyid").remove();
+    spawnEnemys();
+}
+function makeMobileControls() {
+    // make up button
+    let upB = document.createElement("div");
+    upB.id = "upbid";
+    document.body.appendChild(upB);
+    upB.classList.add("movementButtons")
+    document.getElementById("upbid").style.width = "75";
+    document.getElementById("upbid").style.height = "75";
+    document.getElementById("upbid").style.backgroundColor = "black"
+    document.getElementById("upbid").style.top = "700";
+    document.getElementById("upbid").style.left = "75";
+    // make bottom button
+    let downB = document.createElement("div");
+    downB.id = "downbid";
+    document.body.appendChild(downB);
+    downB.classList.add("movementButtons")
+    document.getElementById("downbid").style.width = "75";
+    document.getElementById("downbid").style.height = "75";
+    document.getElementById("downbid").style.backgroundColor = "black"
+    document.getElementById("downbid").style.top = "850";
+    document.getElementById("downbid").style.left = "75";
+    // make left button
+    let leftB = document.createElement("div");
+    leftB.id = "leftbid";
+    document.body.appendChild(leftB);
+    leftB.classList.add("movementButtons")
+    document.getElementById("leftbid").style.width = "75";
+    document.getElementById("leftbid").style.height = "75";
+    document.getElementById("leftbid").style.backgroundColor = "black"
+    document.getElementById("leftbid").style.top = "775";
+    document.getElementById("leftbid").style.left = "0";
+    // make right button
+    let rightB = document.createElement("div");
+    rightB.id = "rightbid";
+    document.body.appendChild(rightB);
+    rightB.classList.add("movementButtons")
+    document.getElementById("rightbid").style.width = "75";
+    document.getElementById("rightbid").style.height = "75";
+    document.getElementById("rightbid").style.backgroundColor = "black"
+    document.getElementById("rightbid").style.top = "775";
+    document.getElementById("rightbid").style.left = "150";
+    // shoot button
+    let shootB = document.createElement("div");
+    shootB.id = "shootbid";
+    document.body.appendChild(shootB);
+    shootB.classList.add("movementButtons")
+    document.getElementById("shootbid").style.width = "80";
+    document.getElementById("shootbid").style.height = "80";
+    document.getElementById("shootbid").style.backgroundColor = "red"
+    document.getElementById("shootbid").style.top = "775";
+    document.getElementById("shootbid").style.left = "1000";
+    // do onclicks (actual movement part lol)
+    upB.onclick = moveUp;
+    downB.onclick = moveDown;
+    leftB.onclick = moveLeft;
+    rightB.onclick = moveRight;
+    shootB.onclick = shootBulletFunction;
+}
+function moveUp() {
+    uDV -= 20;
+    document.getElementById("shaggy").style.top = uDV;
+}
+function moveDown() {
+    uDV += 20;
+    document.getElementById("shaggy").style.top = uDV;
+}
+function moveLeft() {
+    lRV -= 20;
+    document.getElementById("shaggy").style.left = lRV;
+}
+function moveRight() {
+    lRV += 20;
+    document.getElementById("shaggy").style.left = lRV;
+}
+function shootButtonFunction() {
+    if (shootBullet > 0) {
+        shootBullet -= 1;
+        let bullet = document.createElement("div");
+        let bulletPosB1 = parseInt(document.getElementById("shaggy").style.top);
+        let bulletPosB2 = parseInt(document.getElementById("shaggy").style.left);
+        let bulletPos1 = bulletPosB1 + 338;
+        let bulletPos2 = bulletPosB2 + 458;
+        bullet.style.top = bulletPos1;
+        bullet.style.left = bulletPos2;
+        bullet.classList.add("bullets");
+        bullet.id = "bullet"
+        console.log(bulletPos1);
+        document.body.appendChild(bullet);
+        if (russianCheck < 1) {
+            console.log("test1");
+            bullet.style.backgroundColor = "aqua";
+        } else {
+            console.log("test2");
+            bullet.style.backgroundColor = "yellow";
+        }
+        console.log("did the thing");
+        checkIfHit()
+        setTimeout(opacity1, 500);
+        setTimeout(opacity2, 750);
+    }
+}
+// [img]https://i.imgur.com/mdxpi5a.jpg[/img]
+// [img]https://i.imgur.com/qDkXV0z.jpg[/img]
 </script>
 </html> 
