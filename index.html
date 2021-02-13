@@ -87,6 +87,7 @@ h1 {
 <div class="mmbutton" id="mmbuttonid" onclick="mobileModeToggle()">
 <h2>toggle mobile mode.</h2>
 <h3 id="mobileModeText">mobile mode: OFF</h3>
+<h3>NOTE: is very broken lol (also play verticle)</h3>
 </div>
 </div>
 </body>
@@ -304,11 +305,11 @@ function timer() {
     document.getElementById("shaggyimageid").remove();
     shaggy.remove();
     enemy.remove();
-    document.getElementById("upbid").remove();
-    document.getElementById("downbid").remove();
-    document.getElementById("leftbid").remove();
-    document.getElementById("rightbid").remove();
-    document.getElementById("shootbid").remove();
+    if (mobileModeVar > 0) {
+        document.getElementById("upbid").remove();
+        document.getElementById("downbid").remove();
+        document.getElementById("shootbid").remove();
+    }
     console.log("end");
     playAgain.onclick = beforeBeforeSG;
 }
@@ -356,9 +357,9 @@ function makeMobileControls() {
     upB.id = "upbid";
     document.body.appendChild(upB);
     upB.classList.add("movementButtons")
-    document.getElementById("upbid").style.width = "100";
-    document.getElementById("upbid").style.height = "100";
-    document.getElementById("upbid").style.backgroundColor = "red"
+    document.getElementById("upbid").style.width = "200";
+    document.getElementById("upbid").style.height = "200";
+    document.getElementById("upbid").style.backgroundColor = "green"
     document.getElementById("upbid").style.top = "700";
     document.getElementById("upbid").style.left = "75";
     // make bottom button
@@ -366,46 +367,24 @@ function makeMobileControls() {
     downB.id = "downbid";
     document.body.appendChild(downB);
     downB.classList.add("movementButtons")
-    document.getElementById("downbid").style.width = "100";
-    document.getElementById("downbid").style.height = "100";
+    document.getElementById("downbid").style.width = "200";
+    document.getElementById("downbid").style.height = "200";
     document.getElementById("downbid").style.backgroundColor = "red"
     document.getElementById("downbid").style.top = "900";
     document.getElementById("downbid").style.left = "75";
-    // make left button
-    let leftB = document.createElement("div");
-    leftB.id = "leftbid";
-    document.body.appendChild(leftB);
-    leftB.classList.add("movementButtons")
-    document.getElementById("leftbid").style.width = "100";
-    document.getElementById("leftbid").style.height = "100";
-    document.getElementById("leftbid").style.backgroundColor = "red"
-    document.getElementById("leftbid").style.top = "800";
-    document.getElementById("leftbid").style.left = "-25";
-    // make right button
-    let rightB = document.createElement("div");
-    rightB.id = "rightbid";
-    document.body.appendChild(rightB);
-    rightB.classList.add("movementButtons")
-    document.getElementById("rightbid").style.width = "100";
-    document.getElementById("rightbid").style.height = "100";
-    document.getElementById("rightbid").style.backgroundColor = "red"
-    document.getElementById("rightbid").style.top = "800";
-    document.getElementById("rightbid").style.left = "175";
     // shoot button
     let shootB = document.createElement("div");
     shootB.id = "shootbid";
     document.body.appendChild(shootB);
     shootB.classList.add("movementButtons")
-    document.getElementById("shootbid").style.width = "150";
-    document.getElementById("shootbid").style.height = "150";
-    document.getElementById("shootbid").style.backgroundColor = "red"
+    document.getElementById("shootbid").style.width = "225";
+    document.getElementById("shootbid").style.height = "225";
+    document.getElementById("shootbid").style.backgroundColor = "yellow"
     document.getElementById("shootbid").style.top = "800";
     document.getElementById("shootbid").style.left = "750";
     // do onclicks (actual movement part lol)
     upB.onclick = moveUp;
     downB.onclick = moveDown;
-    leftB.onclick = moveLeft;
-    rightB.onclick = moveRight;
     shootB.onclick = shootBulletFunction;
 }
 function moveUp() {
@@ -415,14 +394,6 @@ function moveUp() {
 function moveDown() {
     uDV += 20;
     document.getElementById("shaggy").style.top = uDV;
-}
-function moveLeft() {
-    lRV -= 20;
-    document.getElementById("shaggy").style.left = lRV;
-}
-function moveRight() {
-    lRV += 20;
-    document.getElementById("shaggy").style.left = lRV;
 }
 function shootButtonFunction() {
     if (shootBullet > 0) {
