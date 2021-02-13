@@ -183,7 +183,7 @@ function startGame() {
         score();
         spawnEnemys();
         if (mobileModeVar > 0) {
-            timeVar = 30000;
+            timeVar = 20000;
         } else {
             timeVar = 15000;
         }
@@ -261,6 +261,10 @@ function credits() {
     let headerVar = document.getElementById("headerText");
     let pBVar = document.getElementById("playbutton");
     let cBVar = document.getElementById("creditsBtnId");
+    let mmBVar = document.getElementById("mmbuttonid");
+    let clBVar = document.getElementById("clbuttonid");
+    clBVar.remove();
+    mmBVar.remove();
     headerVar.remove();
     pBVar.remove();
     cBVar.remove();
@@ -324,6 +328,8 @@ function timer() {
 function changelog() {
     console.log("changelog:");
     console.log("2/10/21 - first official test release");
+    console.log(" 2/13/21 (early tho, like 1am) - full test release 2: mobile mode and graphics");
+    console.log("2/13/21 - quick patch, reduced time on mobile mode and some other small things");
 }
 function shootBulletFunction() {
     if (shootBullet > 0) {
