@@ -205,7 +205,7 @@ function spawnEnemys() {
     if (mobileModeVar < 1) {
             enemyPos2 = 1100
         } else {
-            enemyPos2 = 800;
+            enemyPos2 = 700;
         }
     enemyPos = Math.floor(Math.random() * 701);
     enemy = document.createElement("div");
@@ -275,7 +275,7 @@ function credits() {
     const creditsl3 = document.createElement("h2");
     document.body.appendChild(creditsl3);
     creditsl3.id = "creditsline3"
-    document.getElementById("creditsline3").innerHTML = "thanks to teague the absolute g who made websites for the game(s) newbcola.github.io/ShaggyShooters/ <- online ver"
+    document.getElementById("creditsline3").innerHTML = "thanks to teague the absolute g who made websites for the game(s) newbcola.github.io/ShaggyShooters/ <- online ver (and also background graphics)"
 }
 function timer() {
     console.log("its been 10 seconds");
@@ -356,9 +356,9 @@ function makeMobileControls() {
     upB.id = "upbid";
     document.body.appendChild(upB);
     upB.classList.add("movementButtons")
-    document.getElementById("upbid").style.width = "75";
-    document.getElementById("upbid").style.height = "75";
-    document.getElementById("upbid").style.backgroundColor = "black"
+    document.getElementById("upbid").style.width = "100";
+    document.getElementById("upbid").style.height = "100";
+    document.getElementById("upbid").style.backgroundColor = "red"
     document.getElementById("upbid").style.top = "700";
     document.getElementById("upbid").style.left = "75";
     // make bottom button
@@ -366,41 +366,41 @@ function makeMobileControls() {
     downB.id = "downbid";
     document.body.appendChild(downB);
     downB.classList.add("movementButtons")
-    document.getElementById("downbid").style.width = "75";
-    document.getElementById("downbid").style.height = "75";
-    document.getElementById("downbid").style.backgroundColor = "black"
-    document.getElementById("downbid").style.top = "850";
+    document.getElementById("downbid").style.width = "100";
+    document.getElementById("downbid").style.height = "100";
+    document.getElementById("downbid").style.backgroundColor = "red"
+    document.getElementById("downbid").style.top = "900";
     document.getElementById("downbid").style.left = "75";
     // make left button
     let leftB = document.createElement("div");
     leftB.id = "leftbid";
     document.body.appendChild(leftB);
     leftB.classList.add("movementButtons")
-    document.getElementById("leftbid").style.width = "75";
-    document.getElementById("leftbid").style.height = "75";
-    document.getElementById("leftbid").style.backgroundColor = "black"
-    document.getElementById("leftbid").style.top = "775";
-    document.getElementById("leftbid").style.left = "0";
+    document.getElementById("leftbid").style.width = "100";
+    document.getElementById("leftbid").style.height = "100";
+    document.getElementById("leftbid").style.backgroundColor = "red"
+    document.getElementById("leftbid").style.top = "800";
+    document.getElementById("leftbid").style.left = "-25";
     // make right button
     let rightB = document.createElement("div");
     rightB.id = "rightbid";
     document.body.appendChild(rightB);
     rightB.classList.add("movementButtons")
-    document.getElementById("rightbid").style.width = "75";
-    document.getElementById("rightbid").style.height = "75";
-    document.getElementById("rightbid").style.backgroundColor = "black"
-    document.getElementById("rightbid").style.top = "775";
-    document.getElementById("rightbid").style.left = "150";
+    document.getElementById("rightbid").style.width = "100";
+    document.getElementById("rightbid").style.height = "100";
+    document.getElementById("rightbid").style.backgroundColor = "red"
+    document.getElementById("rightbid").style.top = "800";
+    document.getElementById("rightbid").style.left = "175";
     // shoot button
     let shootB = document.createElement("div");
     shootB.id = "shootbid";
     document.body.appendChild(shootB);
     shootB.classList.add("movementButtons")
-    document.getElementById("shootbid").style.width = "80";
-    document.getElementById("shootbid").style.height = "80";
+    document.getElementById("shootbid").style.width = "150";
+    document.getElementById("shootbid").style.height = "150";
     document.getElementById("shootbid").style.backgroundColor = "red"
-    document.getElementById("shootbid").style.top = "775";
-    document.getElementById("shootbid").style.left = "1000";
+    document.getElementById("shootbid").style.top = "800";
+    document.getElementById("shootbid").style.left = "750";
     // do onclicks (actual movement part lol)
     upB.onclick = moveUp;
     downB.onclick = moveDown;
