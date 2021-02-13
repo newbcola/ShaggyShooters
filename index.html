@@ -8,7 +8,6 @@
     background-color: green;
 } body {
     text-align: center;
-    position: relative;
 } .shaggy {
     width: 75px;
     height: 75px;
@@ -62,6 +61,13 @@ h1 {
     height: 500px;
     background-color: red;
 }
+.arcadebutton {
+    border: 1px solid black;
+    width: 237.5px;
+    height: 500px;
+    background-color: rgb(47, 68, 255);
+    position: absolute;
+}
 </style>
 </head>
 <body>
@@ -93,11 +99,21 @@ h1 {
 <h3>has 5 extra seconds</h3>
 <h3>moves twice as far</h3>
 </div>
+<div class="arcadebutton" id="arcadebuttonid" onclick="arcadeModeToggle()">
+<h2>toggle arcade mode</h2>
+<h3 id="arcadeModeText">arcade mode: OFF</h3>
+<h3>i want this to look even so this is a placeholdefr</h3>
+<h3>details:</h3>
+<h3>30 seconds total</h3>
+<h3>1 in 5 change for a blue square that gives 5 points</h3>
+</div>
 </div>
 </body>
  
 <script>
 // <div class="shaggy" id="shaggy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5UMithNJysMdzph49W6hfWjyM7CT-5rraA&usqp=CAU"></div>
+let arcadeModeCheck = 0;
+let arcadeModeVar = 0;
 let mobileModeVar = 0;
 let russianCheck = 0;
 let timeVar = 15000;
@@ -113,6 +129,9 @@ let shootBullet = 1;
 let i = 0;
 let uDV = 0;
 let lRV = 0;
+// inf button things dw about it
+document.getElementById("arcadebuttonid").style.left = 260;
+document.getElementById("arcadebuttonid").style.top = 472;
 window.addEventListener("keydown", function (e) {
     if ((e.key) === "w") {
         uDV -= 20;
@@ -137,12 +156,22 @@ function mobileModeToggle() {
         mobileModeVar -= 1;
     }
 }    
+function arcadeModeToggle() {
+    if (arcadeModeVar < 1) {
+        document.getElementById("arcadeModeText").innerHTML = "arcade mode: ON";
+        arcadeModeVar += 1;
+    } else {
+        document.getElementById("arcadeModeText").innerHTML = "arcade mode: OFF";
+        arcadeModeVar -= 1;
+    }
+}
 function hideThings2() {
     document.getElementById("mmbuttonid").remove();
     document.getElementById("creditsBtnId").remove();
     document.getElementById("headerText").remove();
     document.getElementById("playbutton").remove();
     document.getElementById("clbuttonid").remove();
+    document.getElementById("arcadebuttonid").remove();
     document.getElementById("break1").remove();
     document.getElementById("break2").remove();
     document.getElementById("break3").remove();
@@ -187,6 +216,12 @@ function startGame() {
         } else {
             timeVar = 15000;
         }
+        if (arcadeModeVar > 0) {
+            timeVar = 30000;
+            if (mobileModeVar > 0) {
+                timeVar = 35000
+            }
+        }
         setTimeout(timer, timeVar);
         document.body.style.backgroundImage = "url('https://i.imgur.com/WxwFGe2.png')";
         gameScore -= gameScore;
@@ -229,6 +264,13 @@ function spawnEnemys() {
     document.getElementById("enemyid").style.height = 100;
     document.getElementById("enemyid").style.backgroundColor = "black";
     document.getElementById("enemyid").style.position = "relative";
+    if (arcadeModeVar > 0) {
+        arcadeModeCheck = Math.floor(Math.random() * 5);
+        console.log(arcadeModeCheck);
+        if (arcadeModeCheck === 4) {
+            document.getElementById("enemyid").style.backgroundColor = "aqua";
+        }
+    }
     if (russianCheck > 0) {
         let RImg = document.createElement("img");
         RImg.id = "russianimageid";
@@ -244,7 +286,11 @@ function checkIfHit() {
         console.log("check2");
         if (bp1 < enemyPos3) {
             console.log("check3");
-            gameScore += 1;
+            if (document.getElementById("enemyid").style.backgroundColor === "aqua") {
+                gameScore += 5;
+            } else {
+                gameScore += 1;
+            }
             document.getElementById("scoreCounterId").innerHTML = gameScore;
             enemy.remove();
             spawnEnemys();
@@ -263,11 +309,13 @@ function credits() {
     let cBVar = document.getElementById("creditsBtnId");
     let mmBVar = document.getElementById("mmbuttonid");
     let clBVar = document.getElementById("clbuttonid");
+    let amVar = document.getElementById("arcadebuttonid");
     clBVar.remove();
     mmBVar.remove();
     headerVar.remove();
     pBVar.remove();
     cBVar.remove();
+    amVar.remove();
     // got rid of things
 
     //credits header
