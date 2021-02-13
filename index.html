@@ -88,6 +88,9 @@ h1 {
 <h2>toggle mobile mode.</h2>
 <h3 id="mobileModeText">mobile mode: OFF</h3>
 <h3>NOTE: is very broken lol (also play verticle)</h3>
+<h3>details:</h3>
+<h3>has 30 seconds instead of 15</h3>
+<h3>dont spam the buttons it will zoom in</h3>
 </div>
 </div>
 </body>
@@ -178,6 +181,11 @@ function startGame() {
     // a game by iandoesgaming#0315 (on discord) message me if you see this!!! :D
         score();
         spawnEnemys();
+        if (mobileModeVar > 0) {
+            timeVar = 30000;
+        } else {
+            timeVar = 15000;
+        }
         setTimeout(timer, timeVar);
         document.body.style.backgroundImage = "url('https://i.imgur.com/WxwFGe2.png')";
         gameScore -= gameScore;
@@ -189,7 +197,6 @@ function startGame() {
         if (mobileModeVar < 1) {
             window.addEventListener("click", shootBulletFunction)
         } else {
-
         }
 }
 function opacity1() {
