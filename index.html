@@ -112,6 +112,7 @@ h1 {
  
 <script>
 // <div class="shaggy" id="shaggy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5UMithNJysMdzph49W6hfWjyM7CT-5rraA&usqp=CAU"></div>
+let jarvisCheck = 0;
 let arcadeModeCheck = 0;
 let arcadeModeVar = 0;
 let mobileModeVar = 0;
@@ -233,6 +234,7 @@ function startGame() {
         if (mobileModeVar < 1) {
             window.addEventListener("click", shootBulletFunction)
         } else {
+            
         }
 }
 function opacity1() {
@@ -288,13 +290,25 @@ function checkIfHit() {
             console.log("check3");
             if (document.getElementById("enemyid").style.backgroundColor === "aqua") {
                 gameScore += 5;
+                if (jarvisCheck > 0) {
+                    gameScore -= 1;
+                }
             } else {
                 gameScore += 1;
+                if (jarvisCheck > 0) {
+                    gameScore -= 1;
+                }
             }
             document.getElementById("scoreCounterId").innerHTML = gameScore;
             enemy.remove();
             spawnEnemys();
         }
+    }
+    if (jarvisCheck > 0) {
+        gameScore += 1;
+        document.getElementById("scoreCounterId").innerHTML = gameScore;
+        enemy.remove();
+        spawnEnemys();
     }
 }
 function score() {
@@ -379,6 +393,7 @@ function changelog() {
     console.log(" 2/13/21 (early tho, like 1am) - full test release 2: mobile mode and graphics");
     console.log("2/13/21 - quick patch, reduced time on mobile mode and some other small things");
     console.log("2/13/2021 (afternoon) - arcade mode released (w/ mobile support)");
+    console.log("2/15/2021 - secret jarvis mode :)")
 }
 function shootBulletFunction() {
     if (shootBullet > 0) {
@@ -473,11 +488,14 @@ function shootButtonFunction() {
         console.log(bulletPos1);
         document.body.appendChild(bullet);
         if (russianCheck < 1) {
-            console.log("test1");
             bullet.style.backgroundColor = "aqua";
         } else {
-            console.log("test2");
             bullet.style.backgroundColor = "yellow";
+        }
+        if (jarvisCheck > 0) {
+            bullet.style.backgroundColor = "aqua";
+        } else {
+            bullet.style.backgroundColor = "orange";
         }
         console.log("did the thing");
         checkIfHit()
@@ -485,7 +503,12 @@ function shootButtonFunction() {
         setTimeout(opacity2, 750);
     }
 }
+function jarvisMode() {
+    jarvisCheck = 1;
+    document.getElementById("shaggyimageid").src = "https://i.imgur.com/Uj9rYSA.png";
+}
 // [img]https://i.imgur.com/mdxpi5a.jpg[/img]
 // [img]https://i.imgur.com/qDkXV0z.jpg[/img]
+// [img]https://i.imgur.com/Uj9rYSA.png[/img]
 </script>
 </html> 
